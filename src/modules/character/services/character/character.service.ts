@@ -1,30 +1,28 @@
-import { Injectable } from "@nestjs/common";
-import { CharacterDto } from "../../models/characterDto";
-import { CharacterRepositoryService } from "../../repository/character-repository/character-repository.service";
-import { Observable } from "rxjs";
-import { DeleteResult } from "typeorm";
+import { Injectable } from '@nestjs/common';
+import { CharacterDto } from '../../models/characterDto';
+import { CharacterRepositoryService } from '../../repository/character-repository/character.repository.service';
 
 @Injectable()
 export class CharacterService {
   constructor(private readonly repository: CharacterRepositoryService) {}
 
-  get(): Observable<CharacterDto[]> {
-    return this.repository.get();
+  async get(): Promise<CharacterDto[]> {
+    return await this.repository.get();
   }
 
-  getById(id: string): Observable<CharacterDto> {
-    return this.repository.getById(id);
+  async getById(id: string): Promise<CharacterDto> {
+    return await this.repository.getById(id);
   }
 
-  create(body: CharacterDto): Observable<CharacterDto> {
-    return this.repository.create(body);
+  async create(body: CharacterDto): Promise<CharacterDto> {
+    return await this.repository.create(body);
   }
 
-  update(body: CharacterDto): Observable<CharacterDto> {
-    return this.repository.update(body);
+  async update(body: CharacterDto): Promise<CharacterDto> {
+    return await this.repository.update(body);
   }
 
-  delete(id: string): Observable<DeleteResult> {
-    return this.repository.delete(id);
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
   }
 }

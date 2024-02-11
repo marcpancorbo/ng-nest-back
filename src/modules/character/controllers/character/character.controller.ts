@@ -1,36 +1,38 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { firstValueFrom } from "rxjs";
-import { DeleteResult } from "typeorm";
-import { CharacterDto } from "../../models/characterDto";
-import { CharacterService } from "../../services/character/character.service";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CharacterDto } from '../../models/characterDto';
+import { CharacterService } from '../../services/character/character.service';
 
-@Controller("character")
+@Controller('character')
 export class CharacterController {
   constructor(private readonly characterService: CharacterService) {}
 
   @Get()
-  async get(): Promise<CharacterDto[]> {
-    const character = await firstValueFrom(this.characterService.get());
-    return character;
+  get(): Promise<CharacterDto[]> {
+    return this.characterService.get();
   }
 
-  @Get(":id")
-  async getById(@Param("id") id: string): Promise<CharacterDto> {
-    const character = await firstValueFrom(this.characterService.getById(id));
-    return character;
+  @Get(':id')
+  getById(@Param('id') id: string): Promise<CharacterDto> {
+    return this.characterService.getById(id);
   }
   @Post()
-  async create(@Body() body: CharacterDto): Promise<CharacterDto> {
-    const character = await firstValueFrom(this.characterService.create(body));
-    return character;
+  create(@Body() body: CharacterDto): Promise<CharacterDto> {
+    return this.characterService.create(body);
   }
   @Put()
-  async update(body: CharacterDto): Promise<CharacterDto> {
-    const character = await firstValueFrom(this.characterService.update(body));
-    return character;
+  update(body: CharacterDto): Promise<CharacterDto> {
+    return this.characterService.update(body);
   }
-  @Delete(":id")
-  async delete(@Param("id") id: string): Promise<DeleteResult> {
-    return await firstValueFrom(this.characterService.delete(id));
+  @Delete(':id')
+  delete(@Param('id') id: string): Promise<void> {
+    return this.characterService.delete(id);
   }
 }
