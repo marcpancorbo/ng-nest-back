@@ -1,14 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { CharacterRace } from "../enum/character_race";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CharacterRace } from '../enum/character-race';
 
-@Entity("Character")
+@Entity('Character')
 export class Character {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column()
   name: string;
   @Column({ default: 0 })
   power: number;
-  @Column({ type: "enum", enum: CharacterRace, default: CharacterRace.HUMAN })
+  @Column({ type: 'enum', enum: CharacterRace, default: CharacterRace.Human })
   race: CharacterRace;
 }
