@@ -1,4 +1,4 @@
-import { CharacterRace } from '../enum/character_race';
+import { CharacterRace } from '../enum/character-race';
 
 export interface CharacterDto {
   id: string;
