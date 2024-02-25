@@ -14,12 +14,17 @@ export class CharacterService {
     return await this.repository.getById(id);
   }
 
+  async exists(name: string, id?: string): Promise<boolean> {
+    return await this.repository.exists(name, id);
+  }
+
   async create(body: CharacterDto): Promise<CharacterDto> {
     return await this.repository.create(body);
   }
 
-  async update(body: CharacterDto): Promise<CharacterDto> {
-    return await this.repository.update(body);
+  async update(id: string, body: CharacterDto): Promise<CharacterDto> {
+    await this.repository.update(id, body);
+    return await this.repository.getById(id);
   }
 
   async delete(id: string): Promise<void> {
