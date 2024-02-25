@@ -5,4 +5,5 @@ export interface CharacterDto {
   name: string;
   race: CharacterRace;
   power: number;
+  imageUrl: string;
 }

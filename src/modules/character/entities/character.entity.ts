@@ -11,4 +11,6 @@ export class Character {
   power: number;
   @Column({ type: 'enum', enum: CharacterRace, default: CharacterRace.Human })
   race: CharacterRace;
+  @Column({ nullable: true })
+  imageUrl: string;
 }

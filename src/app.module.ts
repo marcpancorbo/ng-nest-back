@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CharacterModule } from './modules/character/character.module';
+
 @Module({
   imports: [
     CharacterModule,
@@ -17,6 +20,9 @@ import { CharacterModule } from './modules/character/character.module';
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'), // ajusta la ruta según sea necesario
     }),
   ],
   controllers: [AppController],
