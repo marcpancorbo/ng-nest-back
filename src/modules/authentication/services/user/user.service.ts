@@ -13,7 +13,7 @@ export class UserService {
     private readonly jwtService: JwtService,
     private readonly bcryptService: BcryptService,
   ) {}
-  async login(data: LoginRequestDto): Promise<string> {
+  async login(data: LoginRequestDto): Promise<object> {
     const user: User = await this.userRepositoryService.login(data.username);
     const isPasswordValid = await this.bcryptService.comparePassword(
       data.password,
@@ -27,7 +27,10 @@ export class UserService {
       username: user.username,
       email: user.email,
     };
-    return await this.jwtService.signAsync(payload);
+    const token = await this.jwtService.signAsync(payload);
+    return {
+      access_token: token,
+    };
   }
 
   async register(data: RegisterRequestDto): Promise<void> {
