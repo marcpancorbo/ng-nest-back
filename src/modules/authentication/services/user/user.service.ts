@@ -15,6 +15,9 @@ export class UserService {
   ) {}
   async login(data: LoginRequestDto): Promise<object> {
     const user: User = await this.userRepositoryService.login(data.username);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
     const isPasswordValid = await this.bcryptService.comparePassword(
       data.password,
       user.password,
@@ -26,6 +29,7 @@ export class UserService {
       sub: user.id,
       username: user.username,
       email: user.email,
+      role: user.role,
     };
     const token = await this.jwtService.signAsync(payload);
     return {
@@ -40,6 +44,7 @@ export class UserService {
       username: data.username,
       email: data.email,
       password: hashPasword,
+      role: data.role,
     };
     await this.userRepositoryService.register(user);
   }

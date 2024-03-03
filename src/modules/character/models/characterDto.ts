@@ -6,4 +6,7 @@ export interface CharacterDto {
   race: CharacterRace;
   power: number;
   imageUrl: string;
+  createdBy: string;
+  createdOn: Date;
+  updatedOn: Date;
 }

@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { CharacterRace } from '../enum/character-race';
 
 @Entity('Character')
@@ -13,4 +19,10 @@ export class Character {
   race: CharacterRace;
   @Column({ nullable: true })
   imageUrl: string;
+  @Column()
+  createdBy: string;
+  @CreateDateColumn()
+  createdOn: Date;
+  @UpdateDateColumn()
+  updatedOn: Date;
 }

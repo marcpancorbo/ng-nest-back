@@ -4,10 +4,15 @@ import { CharacterController } from './controllers/character/character.controlle
 import { Character } from './entities/character.entity';
 import { CharacterRepositoryService } from './repository/character-repository/character.repository.service';
 import { CharacterService } from './services/character/character.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from 'src/core/services/jwt-strategy/jwt-strategy.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Character])],
+  imports: [
+    TypeOrmModule.forFeature([Character]),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+  ],
   controllers: [CharacterController],
-  providers: [CharacterService, CharacterRepositoryService],
+  providers: [CharacterService, CharacterRepositoryService, JwtStrategy],
 })
 export class CharacterModule {}
